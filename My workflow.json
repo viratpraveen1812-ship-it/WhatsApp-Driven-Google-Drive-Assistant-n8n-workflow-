@@ -122,6 +122,30 @@
               },
               "renameOutput": true,
               "outputKey": "SUMMARY"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ea32b240-295e-4caa-9d55-add21e7480a3",
+                    "leftValue": "={{ $json.data.body }}",
+                    "rightValue": "/",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "help"
             }
           ]
         },
@@ -848,8 +872,8 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        -144,
-        608
+        -32,
+        512
       ],
       "id": "1367b19c-cf35-4f81-b0a9-ea0baff65ed9",
       "name": "Search files and folders7",
@@ -1536,6 +1560,29 @@
       ],
       "id": "605ef9a7-890f-4a06-9bdb-0dd521744e6c",
       "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "from": "={{ $('Twilio Trigger').first().json.data.to.replace('whatsapp:', '')}}",
+        "to": "={{ $('Twilio Trigger').first().json.data.from.replace('whatsapp:', '')}}",
+        "toWhatsapp": true,
+        "message": "=*LIST /ProjectX — list files in /ProjectX  \n*DELETE /ProjectX/report.pdf  \n*MOVE /ProjectX/report.pdf /Archive  \n*SUMMARY /ProjectX — return a bullet digest of each  file’s content (PDF/Docx/TXT).",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        336
+      ],
+      "id": "b05c7f24-c4e4-4e47-b900-6e65078d4f1a",
+      "name": "Send an SMS/MMS/WhatsApp message9",
+      "credentials": {
+        "twilioApi": {
+          "id": "3xIY9gFhZYt6dyfv",
+          "name": "Twilio account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -1577,6 +1624,13 @@
         [
           {
             "node": "Search files and folders7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send an SMS/MMS/WhatsApp message9",
             "type": "main",
             "index": 0
           }
@@ -2089,7 +2143,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "76d88f8b-222c-402d-8af9-7b953d3f30ca",
+  "versionId": "cc42f9fd-d45a-4b59-aa90-13a14e2bc7d4",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "97e1f765b81ab0deaf1a3da656dee63d6843cb3c71836280f48d6de06912081e"
